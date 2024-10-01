@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Fsi.Gameplay.Gameplay
 {
-    public class GameplayPlayer : MonoBehaviour
+    public class GameplayPlayer : MbSingleton<GameplayPlayer>
     {
         public ThirdPersonController ThirdPersonController { get; private set; }
         
@@ -26,8 +26,10 @@ namespace Fsi.Gameplay.Gameplay
 
         private Vector2 movementVector;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             movementInput = movementInputRef.ToInputAction();
             
             ThirdPersonController = Instantiate(thirdPersonControllerPrefab);
@@ -39,7 +41,7 @@ namespace Fsi.Gameplay.Gameplay
             movementVector = movementInput.ReadValue<Vector2>();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             ThirdPersonController.ProvideMovementInput(movementVector);
         }
