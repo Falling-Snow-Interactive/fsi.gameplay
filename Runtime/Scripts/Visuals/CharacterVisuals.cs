@@ -22,6 +22,18 @@ namespace Fsi.Prototyping.Visuals
 
         [SerializeField]
         private string groundedParam = "IsGrounded";
+
+        [SerializeField]
+        private string punchParam = "Punch";
+        
+        [SerializeField]
+        private string kickParam = "Kick";
+
+        [SerializeField]
+        private string spellParam = "Spell";
+
+        [SerializeField]
+        private string hitParam = "Hit";
         
         public void SetMovement(Vector3 velocity)
         {
@@ -36,6 +48,26 @@ namespace Fsi.Prototyping.Visuals
         public void SetGrounded(bool set)
         {
             animator.SetBool(groundedParam, set);
+        }
+
+        public void Punch()
+        {
+            animator.SetTrigger(punchParam);
+        }
+
+        public void Kick()
+        {
+            animator.SetTrigger(kickParam);
+        }
+
+        public void Spell()
+        {
+            animator.SetTrigger(spellParam);
+        }
+
+        public void Hit()
+        {
+            animator.SetTrigger(hitParam);
         }
     }
 }
