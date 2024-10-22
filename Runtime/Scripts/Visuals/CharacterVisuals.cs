@@ -34,6 +34,9 @@ namespace Fsi.Prototyping.Visuals
 
         [SerializeField]
         private string hitParam = "Hit";
+
+        [SerializeField]
+        private string deadParam = "Dead";
         
         public void SetMovement(Vector3 velocity)
         {
@@ -68,6 +71,11 @@ namespace Fsi.Prototyping.Visuals
         public void Hit()
         {
             animator.SetTrigger(hitParam);
+        }
+
+        public void Dead(bool set)
+        {
+            animator.SetBool(deadParam, set);
         }
     }
 }
