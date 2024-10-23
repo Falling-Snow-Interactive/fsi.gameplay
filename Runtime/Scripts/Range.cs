@@ -3,25 +3,48 @@ using UnityEngine;
 
 namespace Fsi.Gameplay
 {
+    [Serializable]
     public abstract class Range<T>
     {
-        public abstract T Min { get; }
-        public abstract T Max { get; }
+        [SerializeField]
+        private T min;
+
+        public T Min => min;
+
+        [SerializeField]
+        private T max;
+
+        public T Max => max;
+
+        protected Range()
+        {
+            min = max = default;
+        }
+    
+        protected Range(T min, T max)
+        {
+            this.min = min;
+            this.max = max;
+        }
 
         public abstract T Random();
     }
 
     [Serializable]
-    public class FloatRange : Range<float>
+    public class RangeInt : Range<int>
     {
-        [SerializeField]
-        private float min = 0;
+        public RangeInt(int min, int max) : base(min, max) { }
 
-        [SerializeField]
-        private float max = 10;
+        public override int Random()
+        {
+            return UnityEngine.Random.Range(Min, Max);
+        }
+    }
 
-        public override float Min => min;
-        public override float Max => max;
+    [Serializable]
+    public class RangeFloat : Range<float>
+    {
+        public RangeFloat(float min, float max) : base(min, max) { }
 
         public override float Random()
         {
@@ -30,35 +53,10 @@ namespace Fsi.Gameplay
     }
     
     [Serializable]
-    public class IntRange : Range<int>
+    public class RangeVector3 : Range<Vector3>
     {
-        [SerializeField]
-        private int min = 0;
+        public RangeVector3(Vector3 min, Vector3 max) : base(min, max) { }
 
-        [SerializeField]
-        private int max = 10;
-        
-        public override int Min => min;
-        public override int Max => max;
-        
-        public override int Random()
-        {
-            return UnityEngine.Random.Range(Min, Max);
-        }
-    }
-    
-    [Serializable]
-    public class Vector3Range : Range<Vector3>
-    {
-        [SerializeField]
-        private Vector3 min = Vector3.zero;
-
-        [SerializeField]
-        private Vector3 max = Vector3.one;
-        
-        public override Vector3 Min => min;
-        public override Vector3 Max => max;
-        
         public override Vector3 Random()
         {
             float x = UnityEngine.Random.Range(Min.x, Max.x);
