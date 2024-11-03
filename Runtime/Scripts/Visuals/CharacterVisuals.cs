@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
-namespace Fsi.Prototyping.Visuals
+namespace Fsi.Gameplay.Visuals
 {
     public class CharacterVisuals : MonoBehaviour
     {
@@ -9,34 +12,41 @@ namespace Fsi.Prototyping.Visuals
         [SerializeField]
         private Animator animator;
 
+        protected Animator Animator => animator;
+        
+        [Serializable]
+        private struct BoneReference
+        {
+            public string tag;
+            public Transform bone;
+        }
+        
+        // Bones
+        [Header("Bones")]
+        
+        [SerializeField]
+        private List<BoneReference> boneReferences = new List<BoneReference>();
+        public Dictionary<string, Transform> Bones { get; private set; }
+
         [Header("Parameters")]
 
         [SerializeField]
-        private string movingParam = "Moving";
-
-        [SerializeField]
         private string moveXParam = "MoveX";
-
-        [SerializeField]
-        private string moveZParam = "MoveZ";
-
-        [SerializeField]
-        private string groundedParam = "IsGrounded";
-
-        [SerializeField]
-        private string punchParam = "Punch";
         
         [SerializeField]
-        private string kickParam = "Kick";
-
+        private string moveZParam = "MoveZ";
+        
         [SerializeField]
-        private string spellParam = "Spell";
+        private string groundedParam = "Grounded";
 
-        [SerializeField]
-        private string hitParam = "Hit";
-
-        [SerializeField]
-        private string deadParam = "Dead";
+        private void Awake()
+        {
+            Bones = new Dictionary<string, Transform>();
+            foreach (var boneReference in boneReferences)
+            {
+                Bones.Add(boneReference.tag, boneReference.bone);
+            }
+        }
         
         public void SetMovement(Vector3 velocity)
         {
@@ -44,38 +54,11 @@ namespace Fsi.Prototyping.Visuals
             
             animator.SetFloat(moveXParam, inverse.x);
             animator.SetFloat(moveZParam, inverse.z);
-            
-            animator.SetBool(movingParam, velocity.sqrMagnitude > 0);
         }
 
         public void SetGrounded(bool set)
         {
             animator.SetBool(groundedParam, set);
-        }
-
-        public void Punch()
-        {
-            animator.SetTrigger(punchParam);
-        }
-
-        public void Kick()
-        {
-            animator.SetTrigger(kickParam);
-        }
-
-        public void Spell()
-        {
-            animator.SetTrigger(spellParam);
-        }
-
-        public void Hit()
-        {
-            animator.SetTrigger(hitParam);
-        }
-
-        public void Dead(bool set)
-        {
-            animator.SetBool(deadParam, set);
         }
     }
 }

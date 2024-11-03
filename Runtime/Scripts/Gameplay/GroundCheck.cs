@@ -1,4 +1,4 @@
-using Fsi.Prototyping.Visuals;
+using Fsi.Gameplay.Visuals;
 using UnityEngine;
 
 namespace Fsi.Prototyping.Gameplay
