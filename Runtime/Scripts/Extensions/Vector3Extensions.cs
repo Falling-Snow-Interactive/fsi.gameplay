@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Fsi.Prototyping.Extensions
+namespace Fsi.Gameplay.Extensions
 {
     public static class Vector3Extensions
     {

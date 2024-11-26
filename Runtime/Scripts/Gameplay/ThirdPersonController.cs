@@ -1,5 +1,5 @@
+using Fsi.Gameplay.Extensions;
 using Fsi.Gameplay.Visuals;
-using Fsi.Prototyping.Extensions;
 using UnityEngine;
 
 namespace Fsi.Prototyping.Gameplay

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace ScrapShowdown.Buckets
+namespace Fsi.Gameplay.Buckets
 {
     public abstract class Bucket<TEntry, TValue> : ScriptableObject
     where TEntry : BucketEntry<TValue>

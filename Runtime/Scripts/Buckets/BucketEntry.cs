@@ -1,4 +1,4 @@
-namespace ScrapShowdown.Buckets
+namespace Fsi.Gameplay.Buckets
 {
     public abstract class BucketEntry<T>
     {
