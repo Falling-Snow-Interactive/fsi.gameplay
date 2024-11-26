@@ -84,7 +84,7 @@ MonoBehaviour:
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20230301
+  m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 0}
@@ -269,8 +269,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5071238950811858319}
-  - component: {fileID: 3829537860684562312}
-  - component: {fileID: 3948679226624341199}
   m_Layer: 0
   m_Name: FSI_GameplayPlayer_01_PFB
   m_TagString: Untagged
@@ -294,39 +292,3 @@ Transform:
   - {fileID: 3652452922647103938}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3829537860684562312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6419227259028066596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f466544ebf9914c71bcb1af97d9645f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  questsData:
-  - {fileID: 11400000, guid: 795d494308f2c4728a8819756b01a5ab, type: 2}
---- !u!114 &3948679226624341199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6419227259028066596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bbd9289098d4153a2274cc231e1a0e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  thirdPersonControllerPrefab: {fileID: 3077043311746118762, guid: 4c652cd61e24842448817c11c300e500, type: 3}
-  playerCamera: {fileID: 1790316840510341605}
-  movementInputRef: {fileID: -6988054164564533138, guid: 5927378de68c24665a883ab3bca18506, type: 3}
-  interactCenter: {x: 0, y: 0.5, z: 0.5}
-  interactRadius: 0.7
-  interactableMask:
-    serializedVersion: 2
-    m_Bits: 1
