@@ -2,7 +2,7 @@ using Fsi.Gameplay.Extensions;
 using Fsi.Gameplay.Visuals;
 using UnityEngine;
 
-namespace Fsi.Prototyping.Gameplay
+namespace Fsi.Gameplay.Gameplay
 {
     public class ThirdPersonController : MonoBehaviour
     {
@@ -15,6 +15,8 @@ namespace Fsi.Prototyping.Gameplay
 
         [SerializeField]
         private new Rigidbody rigidbody;
+
+        protected Rigidbody Rigidbody => rigidbody;
         
         // Movement
         private Vector3 velocity;
@@ -33,10 +35,16 @@ namespace Fsi.Prototyping.Gameplay
         [SerializeField]
         private float rotationSpeed = 100f;
         
+        [Header("Jump")]
+        
+        [Min(0)]
+        [SerializeField]
+        private float jumpForce = 100f;
+        
         // Camera
         private new Camera camera;
         
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             UpdateMovement();
             UpdateRotation();
@@ -44,7 +52,7 @@ namespace Fsi.Prototyping.Gameplay
 
         #region Movement
         
-        private void UpdateMovement()
+        protected virtual void UpdateMovement()
         {
             Vector3 move = velocity * Time.deltaTime;
             Vector3 movePosition = move + transform.position;
@@ -56,14 +64,14 @@ namespace Fsi.Prototyping.Gameplay
             }
         }
 
-        private void ChangeMovement(Vector3 target)
+        protected virtual void ChangeMovement(Vector3 target)
         {
             velocity = velocity.sqrMagnitude >= target.sqrMagnitude 
                            ? Vector3.MoveTowards(velocity, target, accel * Time.deltaTime) 
                            : Vector3.MoveTowards(velocity, target, deccel * Time.deltaTime);
         }
         
-        public void ProvideMovementInput(Vector2 input)
+        public virtual void ProvideMovementInput(Vector2 input)
         {
             camera ??= Camera.main;
             if (camera)
@@ -83,7 +91,7 @@ namespace Fsi.Prototyping.Gameplay
             }
         }
 
-        private void UpdateRotation()
+        protected virtual void UpdateRotation()
         {
             if(velocity.sqrMagnitude > 0)
             {
@@ -91,7 +99,7 @@ namespace Fsi.Prototyping.Gameplay
             }
         }
 
-        private void ChangeRotation(Vector3 direction)
+        protected virtual void ChangeRotation(Vector3 direction)
         {
             Vector3 look = Vector3.RotateTowards(transform.forward.FlattenDirection(), 
                                                  direction.normalized.FlattenDirection(), 
@@ -99,6 +107,15 @@ namespace Fsi.Prototyping.Gameplay
             rigidbody.MoveRotation(Quaternion.LookRotation(look));
         }
 
+        #endregion
+        
+        #region Jump
+        
+        public void Jump()
+        {
+            Rigidbody.AddForce(Vector3.up * jumpForce);
+        }
+        
         #endregion
     }
 }
