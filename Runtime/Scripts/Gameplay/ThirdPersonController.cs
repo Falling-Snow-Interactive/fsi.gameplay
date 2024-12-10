@@ -1,6 +1,8 @@
+using System;
 using Fsi.Gameplay.Extensions;
 using Fsi.Gameplay.Visuals;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Fsi.Gameplay.Gameplay
 {
@@ -20,7 +22,7 @@ namespace Fsi.Gameplay.Gameplay
         
         // Movement
         private Vector3 velocity;
-        
+
         [Header("Movement")]
 
         [SerializeField]
@@ -35,17 +37,66 @@ namespace Fsi.Gameplay.Gameplay
         [SerializeField]
         private float rotationSpeed = 100f;
         
+        [SerializeField]
+        private InputActionReference moveActionRef;
+
         [Header("Jump")]
         
         [Min(0)]
         [SerializeField]
         private float jumpForce = 100f;
         
+        [SerializeField]
+        private InputActionReference jumpActionRef;
+        
         // Camera
         private new Camera camera;
         
+        // input
+        private InputAction moveAction;
+        private InputAction jumpAction;
+        
+        private Vector2 movementInput;
+        
+        [Header("Debugging")]
+
+        [Header("Movement")]
+
+        [SerializeField]
+        private bool debugWaveMovement;
+
+        protected virtual void Awake()
+        {
+            moveAction = moveActionRef.action;
+            jumpAction = jumpActionRef.action;
+            
+            jumpAction.performed += ctx => Jump();
+        }
+
+        private void OnEnable()
+        {
+            moveAction.Enable();
+            jumpAction.Enable();
+        }
+
+        protected virtual void Update()
+        {
+            if (!debugWaveMovement)
+            {
+                movementInput = moveAction.ReadValue<Vector2>();
+            }
+            else
+            {
+                float xWave = Mathf.Sin(Time.time);
+                float yWave = Mathf.Cos(Time.time);
+                movementInput = new Vector2(xWave, yWave);
+            }
+            
+        }
+
         protected virtual void FixedUpdate()
         {
+            ProvideMovementInput(movementInput);
             UpdateMovement();
             UpdateRotation();
         }

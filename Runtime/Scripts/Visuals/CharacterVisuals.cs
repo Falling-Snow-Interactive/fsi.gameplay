@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
 
 namespace Fsi.Gameplay.Visuals
@@ -39,6 +40,12 @@ namespace Fsi.Gameplay.Visuals
         [SerializeField]
         private string groundedParam = "Grounded";
 
+        [SerializeField]
+        private string deadParam = "Dead";
+        
+        [SerializeField]
+        private string victoryParam = "Victory";
+
         private void Awake()
         {
             Bones = new Dictionary<string, Transform>();
@@ -59,6 +66,16 @@ namespace Fsi.Gameplay.Visuals
         public void SetGrounded(bool set)
         {
             animator.SetBool(groundedParam, set);
+        }
+
+        public void SetDead(bool set)
+        {
+            animator.SetBool(deadParam, set);
+        }
+
+        public void SetVictory(bool set)
+        {
+            animator.SetBool(victoryParam, set);
         }
     }
 }
