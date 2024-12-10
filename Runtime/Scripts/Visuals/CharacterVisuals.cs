@@ -41,6 +41,12 @@ namespace Fsi.Gameplay.Visuals
         private string groundedParam = "Grounded";
 
         [SerializeField]
+        private string attackParam = "Attack";
+
+        [SerializeField]
+        private string hitParam = "Hit";
+
+        [SerializeField]
         private string deadParam = "Dead";
         
         [SerializeField]
@@ -76,6 +82,16 @@ namespace Fsi.Gameplay.Visuals
         public void SetVictory(bool set)
         {
             animator.SetBool(victoryParam, set);
+        }
+
+        public void DoAttack()
+        {
+            animator.SetTrigger(attackParam);
+        }
+
+        public void DoHit()
+        {
+            animator.SetTrigger(hitParam);
         }
     }
 }
