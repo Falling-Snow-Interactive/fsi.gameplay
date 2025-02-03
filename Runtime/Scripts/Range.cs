@@ -6,16 +6,9 @@ namespace Fsi.Gameplay
     [Serializable]
     public abstract class Range<T>
     {
-        [SerializeField]
-        private T min;
-
-        public T Min => min;
-
-        [SerializeField]
-        private T max;
-
-        public T Max => max;
-
+        public T min;
+        public T max;
+        
         protected Range()
         {
             min = max = default;
@@ -37,7 +30,7 @@ namespace Fsi.Gameplay
 
         public override int Random()
         {
-            return UnityEngine.Random.Range(Min, Max);
+            return UnityEngine.Random.Range(min, max);
         }
     }
 
@@ -48,7 +41,12 @@ namespace Fsi.Gameplay
 
         public override float Random()
         {
-            return UnityEngine.Random.Range(Min, Max);
+            return UnityEngine.Random.Range(min, max);
+        }
+
+        public float Lerp(float t)
+        {
+            return Mathf.Lerp(min, max, t);
         }
     }
     
@@ -59,9 +57,9 @@ namespace Fsi.Gameplay
 
         public override Vector3 Random()
         {
-            float x = UnityEngine.Random.Range(Min.x, Max.x);
-            float y = UnityEngine.Random.Range(Min.y, Max.y);
-            float z = UnityEngine.Random.Range(Min.z, Max.z);
+            float x = UnityEngine.Random.Range(min.x, max.x);
+            float y = UnityEngine.Random.Range(min.y, max.y);
+            float z = UnityEngine.Random.Range(min.z, max.z);
             return new Vector3(x, y, z);
         }
     }

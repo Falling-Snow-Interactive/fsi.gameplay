@@ -1,8 +1,17 @@
+using System;
+using UnityEngine;
+
 namespace Fsi.Gameplay.Buckets
 {
+    [Serializable]
     public abstract class BucketEntry<T>
     {
-        public abstract int Weight { get; }
-        public abstract T Value { get; }
+        [SerializeField]
+        private int weight = 1;
+        public int Weight => weight;
+
+        [SerializeField]
+        private T value;
+        public T Value => value;
     }
 }

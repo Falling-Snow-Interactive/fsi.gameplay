@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
 
 namespace Fsi.Gameplay.Visuals
 {
     public class CharacterVisuals : MonoBehaviour
     {
+        [SerializeField]
+        private float movementSpeed = 10;
+        
         [Header("Animation")]
         
         [SerializeField]
         private Animator animator;
-
         protected Animator Animator => animator;
         
         [Serializable]
@@ -51,6 +51,12 @@ namespace Fsi.Gameplay.Visuals
         
         [SerializeField]
         private string victoryParam = "Victory";
+        
+        [Header("Renderer")]
+        
+        [SerializeField]
+        protected new Renderer renderer;
+        public Renderer Renderer => renderer;
 
         private void Awake()
         {
@@ -61,9 +67,14 @@ namespace Fsi.Gameplay.Visuals
             }
         }
         
-        public void SetMovement(Vector3 velocity)
+        public void SetMovement(Vector3 velocity, bool normalize)
         {
-            Vector3 inverse = transform.InverseTransformDirection(velocity.normalized) * velocity.magnitude;
+            Vector3 inverse = transform.InverseTransformDirection(velocity.normalized) * (velocity.magnitude/movementSpeed);
+
+            if (normalize)
+            {
+                inverse.Normalize();
+            }
             
             animator.SetFloat(moveXParam, inverse.x);
             animator.SetFloat(moveZParam, inverse.z);
@@ -89,7 +100,7 @@ namespace Fsi.Gameplay.Visuals
             animator.SetTrigger(attackParam);
         }
 
-        public void DoHit()
+        public virtual void DoHit()
         {
             animator.SetTrigger(hitParam);
         }

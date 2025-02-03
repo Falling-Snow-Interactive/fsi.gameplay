@@ -1,4 +1,3 @@
-using Fsi.Prototyping.Gameplay;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;

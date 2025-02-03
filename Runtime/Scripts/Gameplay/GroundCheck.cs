@@ -1,10 +1,14 @@
+using System;
 using Fsi.Gameplay.Visuals;
 using UnityEngine;
 
-namespace Fsi.Prototyping.Gameplay
+namespace Fsi.Gameplay.Gameplay
 {
     public class GroundCheck : MonoBehaviour
     {
+        public event Action Landed;
+        public event Action Jumped;
+        
         public bool IsGrounded { get; private set; }
 
         [SerializeField]
@@ -34,6 +38,14 @@ namespace Fsi.Prototyping.Gameplay
                                                   + transform.right * offset.x 
                                                   + transform.up * offset.y;
             bool isGrounded = Physics.CheckSphere(position, radius, mask);
+            if (IsGrounded && !isGrounded)
+            {
+                Jumped?.Invoke();
+            }
+            else if (!IsGrounded && isGrounded)
+            {
+                Landed?.Invoke();
+            }
             IsGrounded = isGrounded;
             character.SetGrounded(IsGrounded);
         }
