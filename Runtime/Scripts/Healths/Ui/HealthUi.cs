@@ -32,7 +32,7 @@ namespace Fsi.Gameplay.Healths.Ui
                 if (text)
                 {
                     float hp = Mathf.Lerp(range.min, range.max, value);
-                    text.text = $"{(int)hp}/{(int)range.max}";
+                    text.text = $"{(int)hp}";//{(int)range.max}";
                 }
             }
         }

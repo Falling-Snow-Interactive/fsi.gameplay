@@ -9,24 +9,16 @@ namespace Fsi.Gameplay.Buckets
         where TEntry : BucketEntry<TValue> 
     {
         public abstract List<TEntry> Entries { get; }
-
-        private int cachedWeight = -1;
-
-        public int TotalWeight
+        
+        public int GetWeight()
         {
-            get
+            int weight = 0;
+            foreach (TEntry entry in Entries)
             {
-                if (cachedWeight < 0)
-                {
-                    cachedWeight = 0;
-                    foreach (TEntry entry in Entries)
-                    {
-                        cachedWeight += entry.Weight;
-                    }
-                }
-
-                return cachedWeight;
+                weight += entry.Weight;
             }
+
+            return weight;
         }
 
         public TValue GetRandom()
@@ -36,7 +28,7 @@ namespace Fsi.Gameplay.Buckets
                 throw new IndexOutOfRangeException($"No entry in Bucket");
             }
 
-            float roll = Random.Range(0, TotalWeight);
+            float roll = Random.Range(0, GetWeight());
             foreach (var entry in Entries)
             {
                 roll -= entry.Weight;
@@ -47,6 +39,24 @@ namespace Fsi.Gameplay.Buckets
             }
 
             return Entries[^1].Value;
+        }
+
+        public List<TValue> GetRandom(int count, bool repeats = true)
+        {
+            List<TValue> result = new();
+            for (int i = 0; i < count; i++)
+            {
+                TValue rand = GetRandom();
+                switch (repeats)
+                {
+                    case false when !result.Contains(rand):
+                    case true:
+                        result.Add(GetRandom());
+                        break;
+                }
+            }
+
+            return result;
         }
     }
 }

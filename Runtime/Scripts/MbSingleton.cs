@@ -5,9 +5,7 @@ namespace Fsi.Gameplay
     public abstract class MbSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         public static T Instance { get; private set; }
-
-        [SerializeField]
-        private bool dontDestroyOnLoad = false;
+        public bool dontDestroyOnLoad = false;
 
         protected virtual void Awake()
         {

@@ -31,31 +31,37 @@ namespace Fsi.Gameplay.Healths
             Changed?.Invoke();
         }
 
-        public void Damage(int damage)
+        public int Damage(int damage)
         {
             if (IsDead)
             {
-                return;
+                return 0;
             }
-            
-            current = Mathf.Clamp(current - damage, 0, max);
+
+            int damaged = Mathf.Clamp(damage, 0, current);
+            current -= damaged;
             Changed?.Invoke();
 
             if (IsDead)
             {
                 Died?.Invoke();
             }
+            
+            return damaged;
         }
 
-        public void Heal(int heal)
+        public int Heal(int heal)
         {
             if (IsDead)
             {
-                return;
+                return 0;
             }
             
-            current = Mathf.Clamp(current + heal, 0, max);
+            int healed = Mathf.Clamp(heal, 0, max - current);
+            current += healed;
             Changed?.Invoke();
+
+            return healed;
         }
     }
 }
