@@ -102,6 +102,7 @@ namespace Fsi.Gameplay.Healths.Ui
 
         private void OnHealthChanged()
         {
+            range.max = health.max;
             Value = health.Normalized;
         }
     }
