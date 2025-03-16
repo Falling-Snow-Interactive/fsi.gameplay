@@ -32,7 +32,14 @@ namespace Fsi.Gameplay.Healths.Ui
                 if (text)
                 {
                     float hp = Mathf.Lerp(range.min, range.max, value);
-                    text.text = $"{(int)hp}";//{(int)range.max}";
+                    if (showMaxHealth)
+                    {
+                        text.text = $"{(int)hp} / {(int)range.max}";
+                    }
+                    else
+                    {
+                        text.text = $"{(int)hp}";
+                    }
                 }
             }
         }
@@ -42,6 +49,9 @@ namespace Fsi.Gameplay.Healths.Ui
 
         [SerializeField]
         private Gradient gradient = new Gradient();
+
+        [SerializeField]
+        private bool showMaxHealth = false;
         
         [Header("Ui References")]
 
