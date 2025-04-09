@@ -14,6 +14,7 @@ namespace Fsi.Gameplay.SceneManagement
         #if UNITY_EDITOR
         [SerializeField]
         private SceneAsset scene;
+        public SceneAsset Scene => scene;
         #endif
         
         public void OnBeforeSerialize()
