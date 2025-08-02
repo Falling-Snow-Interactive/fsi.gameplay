@@ -3,65 +3,55 @@ using UnityEngine;
 
 namespace Fsi.Gameplay.Healths
 {
-    [Serializable]
-    public class Health
-    {
-        public event Action Changed;
-        public event Action Died;
+	[Serializable]
+	public class Health
+	{
+		public int current;
+		public int max;
 
-        public bool IsAlive => current > 0;
-        public bool IsDead => current <= 0;
-        
-        public int current;
-        public int max;
-        
-        public float Normalized => (float)current / max;
+		public Health(int health)
+		{
+			current = health;
+			max = health;
+		}
 
-        public Health(int health)
-        {
-            current = health;
-            max = health;
-        }
+		public bool IsAlive => current > 0;
+		public bool IsDead => current <= 0;
 
-        public void Initialize(int maxHealth)
-        {
-            max = maxHealth;
-            current = maxHealth;
-            
-            Changed?.Invoke();
-        }
+		public float Normalized => (float)current / max;
+		public event Action Changed;
+		public event Action Died;
 
-        public int Damage(int damage)
-        {
-            if (IsDead)
-            {
-                return 0;
-            }
+		public void Initialize(int maxHealth)
+		{
+			max = maxHealth;
+			current = maxHealth;
 
-            int damaged = Mathf.Clamp(damage, 0, current);
-            current -= damaged;
-            Changed?.Invoke();
+			Changed?.Invoke();
+		}
 
-            if (IsDead)
-            {
-                Died?.Invoke();
-            }
-            
-            return damaged;
-        }
+		public int Damage(int damage)
+		{
+			if (IsDead) return 0;
 
-        public int Heal(int heal)
-        {
-            if (IsDead)
-            {
-                return 0;
-            }
-            
-            int healed = Mathf.Clamp(heal, 0, max - current);
-            current += healed;
-            Changed?.Invoke();
+			int damaged = Mathf.Clamp(damage, 0, current);
+			current -= damaged;
+			Changed?.Invoke();
 
-            return healed;
-        }
-    }
+			if (IsDead) Died?.Invoke();
+
+			return damaged;
+		}
+
+		public int Heal(int heal)
+		{
+			if (IsDead) return 0;
+
+			int healed = Mathf.Clamp(heal, 0, max - current);
+			current += healed;
+			Changed?.Invoke();
+
+			return healed;
+		}
+	}
 }

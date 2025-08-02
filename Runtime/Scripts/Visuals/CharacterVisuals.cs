@@ -4,105 +4,96 @@ using UnityEngine;
 
 namespace Fsi.Gameplay.Visuals
 {
-    public class CharacterVisuals : MonoBehaviour
-    {
-        [SerializeField]
-        private float movementSpeed = 10;
-        
-        [Header("Animation")]
-        
-        [SerializeField]
-        private Animator animator;
-        protected Animator Animator => animator;
-        
-        [Serializable]
-        private struct BoneReference
-        {
-            public string tag;
-            public Transform bone;
-        }
-        
-        // Bones
-        [Header("Bones")]
-        
-        [SerializeField]
-        private List<BoneReference> boneReferences = new List<BoneReference>();
-        public Dictionary<string, Transform> Bones { get; private set; }
+	public class CharacterVisuals : MonoBehaviour
+	{
+		[SerializeField]
+		private float movementSpeed = 10;
 
-        [Header("Parameters")]
+		[Header("Animation")]
+		[SerializeField]
+		private Animator animator;
 
-        [SerializeField]
-        private string moveXParam = "MoveX";
-        
-        [SerializeField]
-        private string moveZParam = "MoveZ";
-        
-        [SerializeField]
-        private string groundedParam = "Grounded";
+		// Bones
+		[Header("Bones")]
+		[SerializeField]
+		private List<BoneReference> boneReferences = new();
 
-        [SerializeField]
-        private string attackParam = "Attack";
+		[Header("Parameters")]
+		[SerializeField]
+		private string moveXParam = "MoveX";
 
-        [SerializeField]
-        private string hitParam = "Hit";
+		[SerializeField]
+		private string moveZParam = "MoveZ";
 
-        [SerializeField]
-        private string deadParam = "Dead";
-        
-        [SerializeField]
-        private string victoryParam = "Victory";
-        
-        [Header("Renderer")]
-        
-        [SerializeField]
-        protected new Renderer renderer;
-        public Renderer Renderer => renderer;
+		[SerializeField]
+		private string groundedParam = "Grounded";
 
-        private void Awake()
-        {
-            Bones = new Dictionary<string, Transform>();
-            foreach (var boneReference in boneReferences)
-            {
-                Bones.Add(boneReference.tag, boneReference.bone);
-            }
-        }
-        
-        public void SetMovement(Vector3 velocity, bool normalize)
-        {
-            Vector3 inverse = transform.InverseTransformDirection(velocity.normalized) * (velocity.magnitude/movementSpeed);
+		[SerializeField]
+		private string attackParam = "Attack";
 
-            if (normalize)
-            {
-                inverse.Normalize();
-            }
-            
-            animator.SetFloat(moveXParam, inverse.x);
-            animator.SetFloat(moveZParam, inverse.z);
-        }
+		[SerializeField]
+		private string hitParam = "Hit";
 
-        public void SetGrounded(bool set)
-        {
-            animator.SetBool(groundedParam, set);
-        }
+		[SerializeField]
+		private string deadParam = "Dead";
 
-        public void SetDead(bool set)
-        {
-            animator.SetBool(deadParam, set);
-        }
+		[SerializeField]
+		private string victoryParam = "Victory";
 
-        public void SetVictory(bool set)
-        {
-            animator.SetBool(victoryParam, set);
-        }
+		[Header("Renderer")]
+		[SerializeField]
+		protected new Renderer renderer;
+		protected Animator Animator => animator;
+		public Dictionary<string, Transform> Bones { get; private set; }
+		public Renderer Renderer => renderer;
 
-        public void DoAttack()
-        {
-            animator.SetTrigger(attackParam);
-        }
+		private void Awake()
+		{
+			Bones = new Dictionary<string, Transform>();
+			foreach (BoneReference boneReference in boneReferences) Bones.Add(boneReference.tag, boneReference.bone);
+		}
 
-        public virtual void DoHit()
-        {
-            animator.SetTrigger(hitParam);
-        }
-    }
+		public void SetMovement(Vector3 velocity, bool normalize)
+		{
+			Vector3 inverse = transform.InverseTransformDirection(velocity.normalized) *
+			                  (velocity.magnitude / movementSpeed);
+
+			if (normalize) inverse.Normalize();
+
+			animator.SetFloat(moveXParam, inverse.x);
+			animator.SetFloat(moveZParam, inverse.z);
+		}
+
+		public void SetGrounded(bool set)
+		{
+			animator.SetBool(groundedParam, set);
+		}
+
+		public void SetDead(bool set)
+		{
+			animator.SetBool(deadParam, set);
+		}
+
+		public void SetVictory(bool set)
+		{
+			animator.SetBool(victoryParam, set);
+		}
+
+		public void DoAttack()
+		{
+			animator.SetTrigger(attackParam);
+		}
+
+		public virtual void DoHit()
+		{
+			animator.SetTrigger(hitParam);
+		}
+
+		[Serializable]
+		private struct BoneReference
+		{
+			public string tag;
+			public Transform bone;
+		}
+	}
 }

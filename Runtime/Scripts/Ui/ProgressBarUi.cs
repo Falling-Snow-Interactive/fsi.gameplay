@@ -4,66 +4,62 @@ using UnityEngine.UI;
 
 namespace Fsi.Gameplay.Ui
 {
-    public class ProgressBarUi : MonoBehaviour
-    {
-        [Range(0,1)]
-        [SerializeField]
-        private float value = 0.7f;
+	public class ProgressBarUi : MonoBehaviour
+	{
+		[Range(0, 1)]
+		[SerializeField]
+		private float value = 0.7f;
 
-        public float Value
-        {
-            get => value;
-            set
-            {
-                this.value = value;
-                if (slider)
-                {
-                    slider.value = value;
-                }
+		[SerializeField]
+		private RangeInt range = new(0, 10);
 
-                if (fillImage)
-                {
-                    fillImage.color = gradient.Evaluate(value);
-                    fillImage.fillAmount = value;
-                }
+		[SerializeField]
+		private Gradient gradient = new();
 
-                if (text)
-                {
-                    float hp = Mathf.Lerp(range.min, range.max, value);
-                    text.text = $"{(int)hp}/{(int)range.max}";
-                }
-            }
-        }
+		[Header("Ui References")]
+		[SerializeField]
+		private Slider slider;
 
-        [SerializeField]
-        private RangeInt range = new(0, 10);
+		[SerializeField]
+		private Image backgroundImage;
 
-        public RangeInt Range
-        {
-            get => range;
-            set => range = value;
-        }
+		[SerializeField]
+		private Image fillImage;
 
-        [SerializeField]
-        private Gradient gradient = new Gradient();
-        
-        [Header("Ui References")]
+		[SerializeField]
+		private TMP_Text text;
 
-        [SerializeField]
-        private Slider slider;
+		public float Value
+		{
+			get => value;
+			set
+			{
+				this.value = value;
+				if (slider) slider.value = value;
 
-        [SerializeField]
-        private Image backgroundImage;
+				if (fillImage)
+				{
+					fillImage.color = gradient.Evaluate(value);
+					fillImage.fillAmount = value;
+				}
 
-        [SerializeField]
-        private Image fillImage;
+				if (text)
+				{
+					float hp = Mathf.Lerp(range.min, range.max, value);
+					text.text = $"{(int)hp}/{range.max}";
+				}
+			}
+		}
 
-        [SerializeField]
-        private TMP_Text text;
+		public RangeInt Range
+		{
+			get => range;
+			set => range = value;
+		}
 
-        private void OnValidate()
-        {
-            Value = value;
-        }
-    }
+		private void OnValidate()
+		{
+			Value = value;
+		}
+	}
 }

@@ -2,26 +2,19 @@ using UnityEngine;
 
 namespace Fsi.Gameplay
 {
-    public abstract class MbSingleton<T> : MonoBehaviour where T : MonoBehaviour
-    {
-        public static T Instance { get; private set; }
-        public bool dontDestroyOnLoad = false;
+	public abstract class MbSingleton<T> : MonoBehaviour where T : MonoBehaviour
+	{
+		public bool dontDestroyOnLoad;
+		public static T Instance { get; private set; }
 
-        protected virtual void Awake()
-        {
-            if (dontDestroyOnLoad)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-            
-            if (Instance == null)
-            {
-                Instance = this as T;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
+		protected virtual void Awake()
+		{
+			if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
+
+			if (Instance == null)
+				Instance = this as T;
+			else
+				Destroy(gameObject);
+		}
+	}
 }
