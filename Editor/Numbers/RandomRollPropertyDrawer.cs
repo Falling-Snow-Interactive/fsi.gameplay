@@ -1,9 +1,8 @@
-using Fsi.Gameplay.Numbers;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Editor.Numbers
+namespace Fsi.Gameplay.Numbers
 {
 	[CustomPropertyDrawer(typeof(RandomRoll))]
 	public class RandomRollPropertyDrawer : PropertyDrawer

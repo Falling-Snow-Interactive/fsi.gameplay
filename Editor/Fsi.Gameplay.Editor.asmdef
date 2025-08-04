@@ -1,0 +1,18 @@
+{
+    "name": "Fsi.Gameplay.Editor",
+    "rootNamespace": "Fsi.Gameplay",
+    "references": [
+        "GUID:b233fa7d6b0de4d70956927d4f1d5623"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
