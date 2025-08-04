@@ -2,7 +2,8 @@
     "name": "Fsi.Gameplay.Editor",
     "rootNamespace": "Fsi.Gameplay",
     "references": [
-        "GUID:b233fa7d6b0de4d70956927d4f1d5623"
+        "GUID:b233fa7d6b0de4d70956927d4f1d5623",
+        "GUID:d01539a91a51f41e884d80a7bdf27f86"
     ],
     "includePlatforms": [
         "Editor"

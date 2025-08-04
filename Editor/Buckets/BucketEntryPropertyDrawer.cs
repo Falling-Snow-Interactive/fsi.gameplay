@@ -4,14 +4,20 @@ using UnityEngine.UIElements;
 
 namespace Fsi.Gameplay.Buckets
 {
+	[CustomPropertyDrawer(typeof(BucketEntry<>), true)]
 	public class BucketEntryPropertyDrawer : PropertyDrawer
 	{
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
-			var root = new VisualElement();
+			var root = new VisualElement
+			           {
+				           style =
+				           {
+					           flexDirection = FlexDirection.Row,
+					           flexGrow = 1
+				           }
+			           };
 
-			root.style.flexDirection = FlexDirection.Row;
-			root.style.flexGrow = 1;
 			// root.style.flexShrink = 1;
 
 			SerializedProperty valueProp = property.FindPropertyRelative("value");
