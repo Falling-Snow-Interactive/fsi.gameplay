@@ -10,21 +10,21 @@ namespace Fsi.Gameplay.Buckets
 		[SerializeField]
 		private string name;
 
-		[SerializeField]
-		private int weight = 1;
-
-		[SerializeField]
-		private T value;
-		public int Weight => weight;
-		public T Value => value;
+		public abstract T Value { get; }
+		public abstract int Weight { get; }
 
 		public void OnBeforeSerialize()
 		{
-			name = $"{value} - {weight}";
+			name = ToString();
 		}
 
-		public void OnAfterDeserialize()
+		public void OnAfterDeserialize() { }
+
+		public override string ToString()
 		{
+			string v = Value != null ? Value.ToString() : "No value";
+			string w = Weight.ToString();
+			return $"{v} - {w}";
 		}
 	}
 }
