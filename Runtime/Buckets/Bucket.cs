@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Fsi.Gameplay.Buckets
 {
-	public abstract class Bucket<TEntry, TValue> : ScriptableObject
-		where TEntry : BucketEntry<TValue>
+	public abstract class Bucket<TEntry, TValue> where TEntry : BucketEntry<TValue>
 	{
 		public abstract List<TEntry> Entries { get; }
 
