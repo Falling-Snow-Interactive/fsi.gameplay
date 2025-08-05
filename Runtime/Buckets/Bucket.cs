@@ -40,7 +40,7 @@ namespace Fsi.Gameplay.Buckets
 				{
 					case false when !result.Contains(rand):
 					case true:
-						result.Add(GetRandom());
+						result.Add(rand);
 						break;
 				}
 			}
