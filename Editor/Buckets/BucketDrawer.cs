@@ -13,7 +13,6 @@ namespace Fsi.Gameplay.Buckets
 			VisualElement root = new();
 			
 			root.Add(new PropertyField(property));
-			root.Add(new Spacer());
 			
 			return root;
 		}
