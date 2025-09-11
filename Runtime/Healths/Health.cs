@@ -53,5 +53,13 @@ namespace Fsi.Gameplay.Healths
 
 			return healed;
 		}
+
+		public void SetMax(int max)
+		{
+			this.max = max;
+			current = Mathf.Clamp(current, 0, max);
+
+			Changed?.Invoke();
+		}
 	}
 }
