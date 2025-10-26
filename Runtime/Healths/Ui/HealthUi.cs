@@ -2,6 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Fsi.Gameplay.Healths.Ui
 {
 	public class HealthUi : MonoBehaviour
@@ -35,24 +39,31 @@ namespace Fsi.Gameplay.Healths.Ui
 		[SerializeField]
 		private TMP_Text text;
 
+		private void ApplyVisuals(float v, bool includeSlider)
+		{
+			if (includeSlider && slider)
+				slider.SetValueWithoutNotify(v);
+
+			if (fillImage)
+				fillImage.color = gradient.Evaluate(v);
+
+			if (text)
+			{
+				float hp = Mathf.Lerp(range.min, range.max, v);
+				if (showMaxHealth)
+					text.text = $"{(int)hp} / {range.max}";
+				else
+					text.text = $"{(int)hp}";
+			}
+		}
+
 		public float Value
 		{
 			get => value;
 			set
 			{
 				this.value = value;
-				if (slider) slider.value = value;
-
-				if (fillImage) fillImage.color = gradient.Evaluate(value);
-
-				if (text)
-				{
-					float hp = Mathf.Lerp(range.min, range.max, value);
-					if (showMaxHealth)
-						text.text = $"{(int)hp} / {range.max}";
-					else
-						text.text = $"{(int)hp}";
-				}
+				ApplyVisuals(value, includeSlider: true);
 			}
 		}
 
@@ -68,7 +79,21 @@ namespace Fsi.Gameplay.Healths.Ui
 
 		private void OnValidate()
 		{
-			Value = value;
+			// Clamp and update non-Slider visuals immediately (safe during validation)
+			value = Mathf.Clamp01(value);
+			ApplyVisuals(value, includeSlider: false);
+
+			// Defer Slider update until after validation to avoid SendMessage errors
+			#if UNITY_EDITOR
+			if (!EditorApplication.isPlayingOrWillChangePlaymode)
+			{
+				EditorApplication.delayCall += () =>
+				{
+					if (this == null) return; // object might have been destroyed
+					ApplyVisuals(value, includeSlider: true);
+				};
+			}
+			#endif
 		}
 
 		public void Initialize(Health health)

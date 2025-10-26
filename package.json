@@ -17,6 +17,6 @@
   "hideInEditor": false,
   "dependencies": {
     "com.unity.inputsystem": "1.9.0",
-    "com.unity.cinemachine": "3.1.2"
+    "com.unity.cinemachine": "3.1.4"
   }
 }

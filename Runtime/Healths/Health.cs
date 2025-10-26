@@ -6,21 +6,22 @@ namespace Fsi.Gameplay.Healths
 	[Serializable]
 	public class Health
 	{
+		public event Action Changed;
+		public event Action Died;
+		
 		public int current;
 		public int max;
+		
+		public bool IsAlive => current > 0;
+		public bool IsDead => current <= 0;
+
+		public float Normalized => (float)current / max;
 
 		public Health(int health)
 		{
 			current = health;
 			max = health;
 		}
-
-		public bool IsAlive => current > 0;
-		public bool IsDead => current <= 0;
-
-		public float Normalized => (float)current / max;
-		public event Action Changed;
-		public event Action Died;
 
 		public void Initialize(int maxHealth)
 		{
