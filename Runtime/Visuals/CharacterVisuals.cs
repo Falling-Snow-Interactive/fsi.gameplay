@@ -10,8 +10,10 @@ namespace Fsi.Gameplay.Visuals
 		private float movementSpeed = 10;
 
 		[Header("Animation")]
+		
 		[SerializeField]
 		private Animator animator;
+		public Animator Animator => animator;
 
 		// Bones
 		[Header("Bones")]
@@ -43,7 +45,7 @@ namespace Fsi.Gameplay.Visuals
 		[Header("Renderer")]
 		[SerializeField]
 		protected new Renderer renderer;
-		protected Animator Animator => animator;
+		
 		public Dictionary<string, Transform> Bones { get; private set; }
 		public Renderer Renderer => renderer;
 
