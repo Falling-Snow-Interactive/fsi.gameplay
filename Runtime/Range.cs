@@ -8,6 +8,8 @@ namespace Fsi.Gameplay
 	{
 		public T min;
 		public T max;
+		
+		public abstract T Center { get; }
 
 		protected Range()
 		{
@@ -30,6 +32,8 @@ namespace Fsi.Gameplay
 		{
 		}
 
+		public override int Center => (min + max) / 2;
+
 		public override int Random()
 		{
 			return UnityEngine.Random.Range(min, max);
@@ -42,6 +46,8 @@ namespace Fsi.Gameplay
 		public RangeFloat(float min, float max) : base(min, max)
 		{
 		}
+		
+		public override float Center => (min + max) / 2;
 
 		public override float Random()
 		{
@@ -57,6 +63,8 @@ namespace Fsi.Gameplay
 	[Serializable]
 	public class RangeVector3 : Range<Vector3>
 	{
+		public override Vector3 Center => (min + max) / 2;
+		
 		public RangeVector3(Vector3 min, Vector3 max) : base(min, max)
 		{
 		}
