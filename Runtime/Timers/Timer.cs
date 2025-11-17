@@ -12,6 +12,8 @@ namespace Fsi.Gameplay.Timers
         [SerializeField]
         private TimerStatus status;
         public TimerStatus Status => status;
+
+        public bool Active => status is TimerStatus.Play or TimerStatus.Pause;
         
         [Min(0)]
         [SerializeField]
@@ -38,10 +40,14 @@ namespace Fsi.Gameplay.Timers
             return this;
         }
 
-        public Timer Stop()
+        public Timer Stop(bool complete = false)
         {
-            status = TimerStatus.Stop;
+            status = complete ? TimerStatus.Complete : TimerStatus.Stop;
             remaining = 0;
+            if (complete)
+            {
+                onComplete?.Invoke();
+            }
             return this;
         }
 

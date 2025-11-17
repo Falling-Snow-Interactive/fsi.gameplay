@@ -17,7 +17,7 @@ namespace Fsi.Gameplay.Game.Settings
         [SerializeField]
         private List<GameObject> launchObjects;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        // [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void OnGameLaunch()
         {
             foreach (GameObject obj in Settings.launchObjects)

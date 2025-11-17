@@ -7,6 +7,12 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 {
     public class SamplePlayerController : MonoBehaviour
     {
+	    [Header("Visuals")]
+
+	    [SerializeField]
+	    private CharacterVisuals visuals;
+	    public CharacterVisuals Visuals => visuals;
+	    
 	    [Header("Physics")]
 	    
 	    [SerializeField]
@@ -28,25 +34,19 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    [SerializeReference]
 	    private StateMachine stateMachine;
 
-	    [Header("Visuals")]
-
-	    [SerializeField]
-	    private CharacterVisuals visuals;
-	    public CharacterVisuals Visuals => visuals;
-
 	    #region MonoBehaviour
 	    
-	    protected virtual void Awake()
+	    private void Awake()
 	    {
 		    SetupStateMachine();
 	    }
 
-	    protected virtual void Start()
+	    private void Start()
 	    {
 		    stateMachine?.Start();
 	    }
 
-	    protected virtual void FixedUpdate()
+	    private void FixedUpdate()
 	    {
 		    stateMachine?.Update();
 	    }
@@ -55,7 +55,7 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 
 	    #region State Machine
 
-	    protected virtual void SetupStateMachine()
+	    private void SetupStateMachine()
 	    {
 		    stateMachine = new StateMachine(startState)
 		                   {

@@ -1,8 +1,10 @@
 using System;
+using Unity.Properties;
 using UnityEngine;
 
 namespace Fsi.Gameplay
 {
+	[GeneratePropertyBag]
 	[Serializable]
 	public abstract class Range<T>
 	{
@@ -39,7 +41,8 @@ namespace Fsi.Gameplay
 			return UnityEngine.Random.Range(min, max);
 		}
 	}
-
+	
+	[GeneratePropertyBag]
 	[Serializable]
 	public class RangeFloat : Range<float>
 	{

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Fsi.Gameplay.Gameplay
 {
+	[AddComponentMenu("FSI/Gameplay/Ground Check")]
 	public class GroundCheck : MonoBehaviour
 	{
 		[SerializeField]

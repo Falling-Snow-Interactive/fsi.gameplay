@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Fsi.Gameplay.Visuals
 {
@@ -14,6 +15,9 @@ namespace Fsi.Gameplay.Visuals
 		[SerializeField]
 		private Animator animator;
 		public Animator Animator => animator;
+
+		[SerializeField]
+		private NavMeshAgent agent;
 
 		// Bones
 		[Header("Bones")]
@@ -53,6 +57,19 @@ namespace Fsi.Gameplay.Visuals
 		{
 			Bones = new Dictionary<string, Transform>();
 			foreach (BoneReference boneReference in boneReferences) Bones.Add(boneReference.tag, boneReference.bone);
+		}
+
+		private void Update()
+		{
+			// if (rigidbody)
+			// {
+			// 	SetMovement(rigidbody.linearVelocity, false);
+			// }
+
+			if (agent)
+			{
+				SetMovement(agent.velocity, false);
+			}
 		}
 
 		public void SetMovement(Vector3 velocity, bool normalize)
