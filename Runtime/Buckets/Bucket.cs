@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Fsi.Gameplay.Buckets
 {
+	[Obsolete] // TODO - Move to general package
 	public abstract class Bucket<TEntry, TValue> where TEntry : BucketEntry<TValue>
 	{
 		public abstract List<TEntry> Entries { get; }

@@ -3,6 +3,7 @@ using Random = UnityEngine.Random;
 
 namespace Fsi.Gameplay.Numbers
 {
+	[Obsolete] // TODO - Marked obsolete Dec 3, 2025 - Delete after Jan 3, 2025
 	[Serializable]
 	public class RandomRoll
 	{

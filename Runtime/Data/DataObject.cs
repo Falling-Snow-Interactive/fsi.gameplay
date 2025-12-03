@@ -1,8 +1,10 @@
+using System;
 using Fsi.Localization;
 using UnityEngine;
 
 namespace Fsi.Gameplay.Data
 {
+	[Obsolete] // TODO - Delete after january. Use Data Object package
 	public class DataObject<TId> : ScriptableObject
 	{
 		[SerializeField]

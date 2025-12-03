@@ -1,4 +1,4 @@
-using Fsi.Gameplay.Gameplay;
+using Fsi.Gameplay.Healths;
 using Fsi.Gameplay.Visuals;
 using Fsi.StateMachines;
 using UnityEngine;
@@ -30,9 +30,23 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    
 	    [SerializeField]
 	    private MonoState controlState;
+
+	    [SerializeField]
+	    private MonoState idleState;
 	    
 	    [SerializeReference]
 	    private StateMachine stateMachine;
+
+	    [Header("State Overrides")]
+
+	    [SerializeField]
+	    private bool forceIdle = false;
+	    
+	    [Header("Health")]
+
+	    [SerializeField]
+	    private Health health;
+	    public Health Health => health;
 
 	    #region MonoBehaviour
 	    
@@ -64,6 +78,8 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 
 		    // Setup transitions
 		    stateMachine.From(startState).To(controlState);
+		    stateMachine.From(controlState).To(idleState).When(() => forceIdle);
+		    stateMachine.From(idleState).To(controlState).When(() => !forceIdle);
 	    }
 
 	    public void GoToState(IState state)
