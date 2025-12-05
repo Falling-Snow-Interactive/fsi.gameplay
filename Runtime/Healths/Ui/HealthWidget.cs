@@ -1,102 +1,106 @@
-// Copyright Falling Snow Interactive 2025
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fsi.Gameplay.Healths.Ui
 {
-	public class HealthWidget : MonoBehaviour
-	{
-		#region Runtime Variables
-		
-		private Health health;
-		
-		#endregion
-		
-		#region Inspector Properties
-		
-		[Header("Properties")]
+    public class HealthWidget : MonoBehaviour
+    {
+        #region Runtime Variables
 
-		[SerializeField]
-		private Gradient gradient = new();
-
-		[SerializeField]
-		private bool showMaxHealth;
-
-		[Header("References")]
+        private Health health;
 		
-		[SerializeField]
-		private Slider slider;
-
-		[SerializeField]
-		private Image backgroundImage;
-
-		[SerializeField]
-		private Image fillImage;
-
-		[SerializeField]
-		private TMP_Text text;
+        #endregion
+        
+        #region Inspector Properties
 		
-		#endregion
-		
-		#region MonoBehaviour
+        [Header("Properties")]
 
-		private void Awake()
-		{
-			slider.interactable = false;
-		}
+        [SerializeField]
+        private Gradient gradient = new();
 
-		private void OnEnable()
-		{
-			if (health != null) health.Changed += OnHealthChanged;
-		}
+        [SerializeField]
+        private bool showMaxHealth;
 
-		private void OnDisable()
-		{
-			if (health != null) health.Changed -= OnHealthChanged;
-		}
+        [Header("References")]
 		
-		#endregion
-		
-		#region Initialize
+        [SerializeField]
+        private Slider slider;
 
-		public void Initialize(Health health)
-		{
-			this.health = health;
+        [SerializeField]
+        private Image backgroundImage;
 
-			health.Changed += OnHealthChanged;
-			Refresh();
-		}
-		
-		#endregion
-		
-		#region Event Callbacks
+        [SerializeField]
+        private Image fillImage;
 
-		private void OnHealthChanged()
-		{
-			Refresh();
-		}
+        [SerializeField]
+        private TMP_Text text;
 		
-		#endregion
-		
-		#region Visual Controls
-		
-		private void Refresh()
-		{
-			slider?.SetValueWithoutNotify(health.Normalized);
+        #endregion
+        
+        #region MonoBehaviour
 
-			if (fillImage)
-			{
-				fillImage.color = gradient.Evaluate(health.Normalized);
-			}
+        private void Awake()
+        {
+            slider.interactable = false;
+        }
 
-			if (text)
-			{
-				text.text = showMaxHealth ? $"{health.Current}/{health.Max}" : $"{health.Current}";
-			}
-		}
+        private void OnEnable()
+        {
+            if (health != null)
+            {
+                health.Changed += OnHealthChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (health != null)
+            {
+                health.Changed -= OnHealthChanged;
+            }
+        }
+        
+        #endregion
+        
+        #region Initialize
+
+        public void Initialize(Health health)
+        {
+            this.health = health;
+
+            health.Changed += OnHealthChanged;
+            Refresh();
+        }
+        
+        #endregion
 		
-		#endregion
-	}
+        #region Event Callbacks
+
+        private void OnHealthChanged()
+        {
+            Refresh();
+        }
+		
+        #endregion
+        
+        #region Visual Controls
+		
+        public void Refresh()
+        {
+            slider?.SetValueWithoutNotify(health.Normalized);
+
+            if (fillImage)
+            {
+                fillImage.color = gradient.Evaluate(health.Normalized);
+            }
+
+            if (text)
+            {
+                text.text = showMaxHealth ? $"{health.Current}/{health.Max}" : $"{health.Current}";
+            }
+        }
+		
+        #endregion
+    }
 }
