@@ -47,11 +47,12 @@ namespace Fsi.Gameplay.Visuals
 		private string victoryParam = "Victory";
 
 		[Header("Renderer")]
+		
 		[SerializeField]
-		protected new Renderer renderer;
+		protected List<Renderer> renderers;
 		
 		public Dictionary<string, Transform> Bones { get; private set; }
-		public Renderer Renderer => renderer;
+		public List<Renderer> Renderer => renderers;
 
 		private void Awake()
 		{
