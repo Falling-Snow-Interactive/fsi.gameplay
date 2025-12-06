@@ -1,19 +1,20 @@
 using Fsi.Gameplay.Healths;
 using Fsi.Gameplay.Visuals;
 using Fsi.StateMachines;
+using Fsi.Ui.Headers;
 using UnityEngine;
 
 namespace Fsi.Gameplay.Sample.Gameplay.Players
 {
     public class SamplePlayerController : MonoBehaviour
     {
-	    [Header("Visuals")]
+	    [FsiHeader("Visuals")]
 
 	    [SerializeField]
 	    private CharacterVisuals visuals;
 	    public CharacterVisuals Visuals => visuals;
 	    
-	    [Header("Physics")]
+	    [FsiHeader("Physics")]
 	    
 	    [SerializeField]
 	    private new Rigidbody rigidbody;
@@ -23,7 +24,7 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    private GroundCheck groundCheck;
 	    public GroundCheck GroundCheck => groundCheck;
 	    
-	    [Header("State Machine")]
+	    [FsiHeader("State Machine")]
 	    
 	    [SerializeField]
 	    private MonoState startState;
@@ -37,12 +38,12 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    [SerializeReference]
 	    private StateMachine stateMachine;
 
-	    [Header("State Overrides")]
+	    [FsiHeader("State Overrides")]
 
 	    [SerializeField]
 	    private bool forceIdle = false;
 	    
-	    [Header("Health")]
+	    [FsiHeader("Health")]
 
 	    [SerializeField]
 	    private Health health;

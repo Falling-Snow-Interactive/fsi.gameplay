@@ -148,6 +148,22 @@ namespace Fsi.Gameplay.Healths
 			return healed;
 		}
 
+		public int SetCurrent(int newCurrent, bool notifiy = true)
+		{
+			if (IsDead)
+			{
+				return 0;
+			}
+
+			int dif = newCurrent - current;
+			return dif switch
+			       {
+				       > 0 => Heal(dif, notifiy),
+				       < 0 => Damage(dif, notifiy),
+				       _ => 0,
+			       };
+		}
+
 		/// <summary>
 		/// Updates the maximum health value and clamps current health if needed.
 		/// </summary>
