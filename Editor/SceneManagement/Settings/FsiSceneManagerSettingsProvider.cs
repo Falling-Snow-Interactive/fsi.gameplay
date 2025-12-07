@@ -1,41 +1,22 @@
-using System.Collections.Generic;
-using Fsi.Gameplay.SceneManagement.Settings;
+using Fsi.Settings;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Fsi.Gameplay
+namespace Fsi.Gameplay.SceneManagement.Settings
 {
-	public class FsiSceneManagerSettingsProvider : SettingsProvider
+	public static class FsiSceneManagerSettingsProvider
 	{
-		private const string SETTINGS_PATH = "Fsi/SceneManager";
-
-		private SerializedObject serializedSettings;
-
-		public FsiSceneManagerSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null)
-			: base(path, scopes, keywords)
-		{
-		}
-
 		[SettingsProvider]
-		public static SettingsProvider CreateMyCustomSettingsProvider()
+		public static SettingsProvider CreateSettingsProvider()
 		{
-			return new FsiSceneManagerSettingsProvider(SETTINGS_PATH, SettingsScope.Project);
+			return SettingsEditorUtility.CreateSettingsProvider("Scene Manager", "Falling Snow Interactive/Scene Manager",
+			                                                    OnActivate);
 		}
 
-		public override void OnActivate(string searchContext, VisualElement rootElement)
+		private static void OnActivate(string searchContext, VisualElement root)
 		{
-			serializedSettings = FsiSceneManagerSettings.GetSerializedSettings();
-		}
-
-		public override void OnGUI(string searchContext)
-		{
-			EditorGUILayout.PropertyField(serializedSettings.FindProperty("debugLog"));
-
-			EditorGUILayout.Space(20);
-			if (GUILayout.Button("Save")) serializedSettings.ApplyModifiedProperties();
-
-			serializedSettings.ApplyModifiedProperties();
+			SerializedObject settingsProp = FsiSceneManagerSettings.GetSerializedSettings();
+			root.Add(SettingsEditorUtility.CreateSettingsPage(settingsProp, "Scene Manager"));
 		}
 	}
 }
