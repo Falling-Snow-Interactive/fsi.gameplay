@@ -8,13 +8,13 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 {
     public class SamplePlayerController : MonoBehaviour
     {
-	    [FsiHeader("Visuals")]
+	    [Header("Visuals")]
 
 	    [SerializeField]
 	    private CharacterVisuals visuals;
 	    public CharacterVisuals Visuals => visuals;
 	    
-	    [FsiHeader("Physics")]
+	    [Header("Physics")]
 	    
 	    [SerializeField]
 	    private new Rigidbody rigidbody;
@@ -24,7 +24,7 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    private GroundCheck groundCheck;
 	    public GroundCheck GroundCheck => groundCheck;
 	    
-	    [FsiHeader("State Machine")]
+	    [Header("State Machine")]
 	    
 	    [SerializeField]
 	    private MonoState startState;
@@ -38,12 +38,12 @@ namespace Fsi.Gameplay.Sample.Gameplay.Players
 	    [SerializeReference]
 	    private StateMachine stateMachine;
 
-	    [FsiHeader("State Overrides")]
+	    [Header("State Overrides")]
 
 	    [SerializeField]
 	    private bool forceIdle = false;
 	    
-	    [FsiHeader("Health")]
+	    [Header("Health")]
 
 	    [SerializeField]
 	    private Health health;

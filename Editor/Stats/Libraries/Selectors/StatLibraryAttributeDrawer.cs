@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using Fsi.DataSystem.Selectors;
+using Fsi.DataSystem.Libraries;
 using Fsi.Gameplay.Stats.Settings;
 using UnityEditor;
 
 namespace Fsi.Gameplay.Stats.Libraries.Selectors
 {
     [CustomPropertyDrawer(typeof(StatLibraryAttribute))]
-    public class StatLibraryAttributeDrawer : SelectorAttributeDrawer<string,StatData>
+    public class StatLibraryAttributeDrawer : LibraryAttributeDrawer<string,StatData>
     {
-        protected override List<StatData> GetEntries() => StatSettings.Stats.Entries;
+        protected override Library<string,StatData> GetLibrary() => StatSettings.Stats;
     }
 }
