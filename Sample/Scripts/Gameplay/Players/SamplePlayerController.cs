@@ -1,4 +1,5 @@
 using Fsi.Gameplay.Healths;
+using Fsi.Gameplay.Physics;
 using Fsi.Gameplay.Visuals;
 using Fsi.StateMachines;
 using Fsi.Ui.Headers;

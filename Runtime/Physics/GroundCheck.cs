@@ -2,11 +2,14 @@ using System;
 using Fsi.Gameplay.Visuals;
 using UnityEngine;
 
-namespace Fsi.Gameplay
+namespace Fsi.Gameplay.Physics
 {
-	[AddComponentMenu("FSI/Gameplay/Ground Check")]
+	[AddComponentMenu("Falling Snow Interactive/Gameplay/Ground Check")]
 	public class GroundCheck : MonoBehaviour
 	{
+		public event Action Landed;
+		public event Action Jumped;
+		
 		[SerializeField]
 		private float radius = 0.35f;
 
@@ -19,14 +22,14 @@ namespace Fsi.Gameplay
 		[SerializeField]
 		private CharacterVisuals character;
 
-		public bool IsGrounded { get; private set; }
+		private bool IsGrounded { get; set; }
 
 		private void Start()
 		{
 			Vector3 position = transform.position + transform.forward * offset.z
 			                                      + transform.right * offset.x
 			                                      + transform.up * offset.y;
-			IsGrounded = Physics.CheckSphere(position, radius, mask);
+			IsGrounded = UnityEngine.Physics.CheckSphere(position, radius, mask);
 			character.SetGrounded(true);
 		}
 
@@ -35,10 +38,16 @@ namespace Fsi.Gameplay
 			Vector3 position = transform.position + transform.forward * offset.z
 			                                      + transform.right * offset.x
 			                                      + transform.up * offset.y;
-			bool isGrounded = Physics.CheckSphere(position, radius, mask);
-			if (IsGrounded && !isGrounded)
-				Jumped?.Invoke();
-			else if (!IsGrounded && isGrounded) Landed?.Invoke();
+			bool isGrounded = UnityEngine.Physics.CheckSphere(position, radius, mask);
+			switch (IsGrounded)
+			{
+				case true when !isGrounded:
+					Jumped?.Invoke();
+					break;
+				case false when isGrounded:
+					Landed?.Invoke();
+					break;
+			}
 			IsGrounded = isGrounded;
 			character.SetGrounded(IsGrounded);
 		}
@@ -60,8 +69,5 @@ namespace Fsi.Gameplay
 			                                      + transform.up * offset.y;
 			Gizmos.DrawSphere(position, radius);
 		}
-
-		public event Action Landed;
-		public event Action Jumped;
 	}
 }

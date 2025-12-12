@@ -25,9 +25,7 @@ namespace Fsi.Gameplay.Healths
 		#endregion
 
 		#region Inspector Properties
-
-		[Header("Properties")]
-
+		
 		[Tooltip("The current health value.")]
 		[Min(0)]
 		[SerializeField]
