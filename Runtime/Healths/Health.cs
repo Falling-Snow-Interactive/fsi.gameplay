@@ -93,6 +93,7 @@ namespace Fsi.Gameplay.Healths
 			}
 		}
 
+		// ReSharper disable Unity.PerformanceAnalysis
 		/// <summary>
 		/// Reduces the current health by the specified amount.
 		/// </summary>
@@ -122,6 +123,7 @@ namespace Fsi.Gameplay.Healths
 			return damaged;
 		}
 
+		// ReSharper disable Unity.PerformanceAnalysis
 		/// <summary>
 		/// Increases the current health by the specified amount, up to the maximum.
 		/// </summary>
