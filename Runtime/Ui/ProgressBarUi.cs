@@ -1,7 +1,7 @@
+using Fsi.General.Math;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using RangeInt = Fsi.General.Math.RangeInt;
 
 namespace Fsi.Gameplay.Ui
 {
@@ -12,7 +12,7 @@ namespace Fsi.Gameplay.Ui
 		private float value = 0.7f;
 
 		[SerializeField]
-		private RangeInt range = new(0, 10);
+		private Range<int> range = new(0, 10);
 
 		[SerializeField]
 		private Gradient gradient = new();
@@ -46,16 +46,10 @@ namespace Fsi.Gameplay.Ui
 
 				if (text)
 				{
-					float hp = Mathf.Lerp(range.min, range.max, value);
-					text.text = $"{(int)hp}/{range.max}";
+					float hp = Mathf.Lerp(range.Min, range.Max, value);
+					text.text = $"{(int)hp}/{range.Max}";
 				}
 			}
-		}
-
-		public RangeInt Range
-		{
-			get => range;
-			set => range = value;
 		}
 
 		private void OnValidate()
