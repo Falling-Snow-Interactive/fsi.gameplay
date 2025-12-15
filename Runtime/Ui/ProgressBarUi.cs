@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using RangeInt = Fsi.General.Math.RangeInt;
 
 namespace Fsi.Gameplay.Ui
 {

@@ -1,18 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Fsi.Gameplay.Randomizers
 {
+	[Serializable]
 	public class Randomizer<TValue, TEntry>
 		where TEntry : RandomizerEntry<TValue>
 	{
-		public Randomizer()
-		{
-			Entries = new List<TEntry>();
-		}
-
-		public virtual List<TEntry> Entries { get; }
+		[SerializeField]
+		private List<TEntry> entries = new();
+		public List<TEntry> Entries => entries; 
 
 		public int TotalWeight => GetWeight(Entries);
 

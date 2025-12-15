@@ -1,8 +1,38 @@
+using System;
+using UnityEngine;
+
 namespace Fsi.Gameplay.Randomizers
 {
-	public abstract class RandomizerEntry<T>
+	[Serializable]
+	public class RandomizerEntry<T> : ISerializationCallbackReceiver
 	{
-		public abstract int Weight { get; set; }
-		public abstract T Value { get; set; }
+		[HideInInspector]
+		[SerializeField]
+		private string name = "";
+		
+		[SerializeField]
+		private T value;
+		public T Value
+		{
+			get => value;
+			set => this.value = value;
+		}
+		
+		[SerializeField]
+		private int weight = 1;
+		public int Weight
+		{
+			get => weight;
+			set => weight = value;
+		}
+
+		public override string ToString() => $"{value} ({weight})";
+		
+		public void OnBeforeSerialize()
+		{
+			name = ToString();
+		}
+
+		public void OnAfterDeserialize() { }
 	}
 }
